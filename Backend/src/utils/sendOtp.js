@@ -12,11 +12,8 @@ export const sendOtp = async (email, otp) => {
   const emailPass = process.env.EMAIL_APP_PASSWORD ? process.env.EMAIL_APP_PASSWORD.trim() : "";
 
   // Development mode: if EMAIL_USER is missing,
-  // print the OTP to console instead of sending so testing works without email setup.
+  // the controller returns the OTP in its development-only response.
   if (isDevelopment && !emailUser) {
-    console.log("\n=======================================================");
-    console.log(`📧 [DEV CONSOLE EMAIL] OTP for ${email}: [ ${otp} ]`);
-    console.log("=======================================================\n");
     return {
       success: true,
       messageId: "dev-console-fallback",
@@ -70,9 +67,6 @@ export const sendOtp = async (email, otp) => {
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    if (isDevelopment) {
-      console.log(`[Email OTP] Sent verification email to ${email}. MessageId: ${info.messageId}`);
-    }
     return {
       success: true,
       messageId: info.messageId,

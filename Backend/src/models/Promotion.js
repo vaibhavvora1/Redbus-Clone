@@ -27,6 +27,8 @@ const promotionSchema = new mongoose.Schema(
   }
 );
 
+promotionSchema.index({ isActive: 1, createdAt: -1 });
+
 const Promotion = mongoose.model("Promotion", promotionSchema);
 
 export default Promotion;

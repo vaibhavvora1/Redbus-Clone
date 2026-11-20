@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 const startServer = async () => {
   await connectDB();
   const server = app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Backend listening on port ${PORT}`);
+    console.info(`Backend listening on port ${PORT}`);
     startBookingHoldCleanup();
   });
   server.on("error", (error) => {

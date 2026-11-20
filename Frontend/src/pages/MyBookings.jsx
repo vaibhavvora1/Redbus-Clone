@@ -73,6 +73,7 @@ export default function Bookings() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Start the initial booking data request.
     fetchBookings();
   }, []);
 

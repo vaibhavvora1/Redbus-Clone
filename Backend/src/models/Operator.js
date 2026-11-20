@@ -52,6 +52,8 @@ const operatorSchema = new mongoose.Schema(
   }
 );
 
+operatorSchema.index({ createdAt: -1 });
+
 const Operator = mongoose.model("Operator", operatorSchema);
 
 export default Operator;

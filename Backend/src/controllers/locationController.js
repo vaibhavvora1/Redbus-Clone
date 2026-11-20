@@ -257,7 +257,13 @@ export const getPlaces = asyncHandler(async (req, res) => {
     (left.type === right.type ? 0 : left.type === "station" ? -1 : 1) ||
     left.name.localeCompare(right.name)
   );
-  const data = results.slice(0, limit).map(({ rank, isPopular, population, ...item }) => item);
+  const data = results.slice(0, limit).map((result) => {
+    const item = { ...result };
+    delete item.rank;
+    delete item.isPopular;
+    delete item.population;
+    return item;
+  });
   res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=120");
   return res.status(200).json({ success: true, count: data.length, data });
 });

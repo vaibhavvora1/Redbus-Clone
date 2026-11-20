@@ -6,7 +6,7 @@ export function startBookingHoldCleanup() {
   const runCleanup = async () => {
     try {
       const released = await cleanupExpiredBookingHolds();
-      if (released) console.log(`Released ${released} expired travel booking hold(s).`);
+      if (released) console.info(`Released ${released} expired travel booking hold(s).`);
     } catch (error) {
       console.error("Travel hold cleanup failed:", error);
     }

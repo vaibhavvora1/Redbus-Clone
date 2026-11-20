@@ -44,6 +44,7 @@ export default function GovernmentBusesPage() {
   const governmentBuses = tripResult.date === travelDate ? tripResult.buses : [];
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Mirror URL values into the editable search draft.
     setSearchFrom(from);
     setSearchTo(to);
   }, [from, to]);

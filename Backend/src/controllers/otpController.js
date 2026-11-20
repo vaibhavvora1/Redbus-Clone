@@ -5,7 +5,7 @@ import User from "../models/User.js";
 import Otp from "../models/Otp.js";
 import OtpSendWindow from "../models/OtpSendWindow.js";
 import { sendOtp } from "../utils/sendOtp.js";
-import { isValidIndianPhone, normalizePhone } from "../utils/userFields.js";
+import { normalizePhone } from "../utils/userFields.js";
 import { getDuplicateUserConflict, sendUserError } from "../utils/userErrors.js";
 import {
   registerSchema,

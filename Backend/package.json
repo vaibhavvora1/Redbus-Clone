@@ -10,8 +10,7 @@
     "seed:travel-demo": "node scripts/seedTravelDemo.js",
     "repair:admin-search": "node scripts/repairAdminSearchVisibility.js",
     "report:locations": "node scripts/reportLocationCoverage.js",
-    "migrate:users": "node scripts/migrateUserIndexes.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migrate:users": "node scripts/migrateUserIndexes.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +18,7 @@
   "type": "module",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "compression": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^18.0.1",

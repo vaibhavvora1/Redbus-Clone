@@ -2,7 +2,6 @@
 import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
-  Eye,
   XCircle,
   Trash2,
   Ticket,
@@ -32,7 +31,6 @@ export default function AdminBookings() {
   const [refundAmount, setRefundAmount] = useState("");
   const [refundReason, setRefundReason] = useState("");
   const [isSubmittingRefund, setIsSubmittingRefund] = useState(false);
-  const [reloadKey, setReloadKey] = useState(0);
 
   const showToast = (msg, type = "success") => setToast({ message: msg, type });
 
@@ -277,7 +275,6 @@ export default function AdminBookings() {
       />
 
       <DataTable
-        key={reloadKey}
         columns={columns}
         fetchData={fetchData}
         searchPlaceholder="Search by PNR, customer, operator, route…"

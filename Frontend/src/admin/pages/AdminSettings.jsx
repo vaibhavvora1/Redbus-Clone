@@ -1,6 +1,6 @@
 // src/admin/pages/AdminSettings.jsx
 import { useState, useEffect } from "react";
-import { Settings, Shield, User, KeyRound, CheckCircle, AlertCircle } from "lucide-react";
+import { Shield, User, KeyRound, AlertCircle } from "lucide-react";
 import api from "../../services/api";
 import PageHeader from "../components/PageHeader";
 import Toast from "../components/Toast";

@@ -1,7 +1,7 @@
 // src/admin/pages/AdminUsers.jsx
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Pencil, Trash2, ShieldCheck, ShieldOff, User, Lock, Unlock } from "lucide-react";
+import { Trash2, ShieldCheck, ShieldOff, User, Lock, Unlock } from "lucide-react";
 import api from "../../services/api";
 import DataTable from "../components/DataTable";
 import StatusBadge from "../components/StatusBadge";

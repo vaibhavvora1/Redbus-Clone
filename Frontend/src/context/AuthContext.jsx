@@ -11,21 +11,21 @@ export function AuthProvider({ children }) {
   /**
    * Check current user session on mount via /api/auth/me
    */
-  const checkAuth = useCallback(async () => {
-    try {
-      setAuthLoading(true);
-      const res = await api.auth.getMe();
+  const checkAuth = useCallback(() =>
+    api.auth.getMe()
+      .then((res) => {
       if (res && res.success && res.user) {
         setCurrentUser(res.user);
       } else {
         setCurrentUser(null);
       }
-    } catch {
-      setCurrentUser(null);
-    } finally {
-      setAuthLoading(false);
-    }
-  }, []);
+      })
+      .catch(() => {
+        setCurrentUser(null);
+      })
+      .finally(() => {
+        setAuthLoading(false);
+      }), []);
 
   useEffect(() => {
     checkAuth();

@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
@@ -67,6 +68,7 @@ app.use(
     crossOriginResourcePolicy: { policy: "cross-origin" },
   })
 );
+app.use(compression());
 
 // 3. Rate limiting for general API requests (runs AFTER CORS preflight is handled)
 app.use("/api", apiLimiter);

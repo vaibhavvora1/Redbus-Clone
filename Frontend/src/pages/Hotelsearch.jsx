@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { Search, Calendar, Users, Hotel as HotelIcon } from "lucide-react";
 import Footer from "../components/Footer";
@@ -6,6 +5,15 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import CitySearchInput from "../components/CitySearchInput";
 import { addDaysToAppDate, getTodayInAppTZ } from "../utils/timeZone";
 import { getHotelSearchValues } from "../utils/hotelSearch";
+
+const fieldBox =
+  "flex flex-col min-w-0 border border-gray-200 rounded-xl px-4 py-2 focus-within:border-red-500 transition";
+const fieldBoxError =
+  "flex flex-col min-w-0 border border-red-500 rounded-xl px-4 py-2 transition";
+const labelClass =
+  "text-xs text-gray-400 flex items-center gap-1 font-medium";
+const inputClass =
+  "w-full min-w-0 bg-transparent outline-none text-sm font-medium text-gray-800";
 
 export default function HotelSearch() {
   const [searchParams] = useSearchParams();
@@ -43,17 +51,17 @@ export default function HotelSearch() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-12">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header Search Section */}
       <div className="bg-linear-to-r from-red-600 to-red-500 pb-16 pt-10">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center gap-2 text-white mb-6">
             <HotelIcon size={28} />
             <h1 className="text-2xl font-bold">Hotels & Stays</h1>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-5">
-            <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr_0.7fr_0.7fr_auto] gap-3 items-center">
+          <div className="relative z-20 bg-white rounded-2xl shadow-xl p-4 sm:p-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_0.7fr_0.7fr_auto] gap-3 items-start">
               <CitySearchInput
                 ref={locationRef}
                 id="hotel-destination"
@@ -65,12 +73,14 @@ export default function HotelSearch() {
                 error={locationError}
                 placeholder="Where are you going?"
                 required
-                className="flex flex-col border border-gray-200 rounded-xl px-4 py-2 focus-within:border-red-500 transition"
-                inputClassName="outline-none text-sm font-medium text-gray-800"
+                className={`relative sm:col-span-2 lg:col-span-1 ${
+                  locationError ? fieldBoxError : fieldBox
+                }`}
+                inputClassName="w-full min-w-0 bg-transparent outline-none text-sm font-medium text-gray-800 placeholder:text-gray-400"
               />
 
-              <div className="flex flex-col border border-gray-200 rounded-xl px-4 py-2 focus-within:border-red-500 transition">
-                <label className="text-xs text-gray-400 flex items-center gap-1 font-medium">
+              <div className={fieldErrors.checkIn ? fieldBoxError : fieldBox}>
+                <label htmlFor="hotel-check-in" className={labelClass}>
                   <Calendar size={12} className="text-red-500" /> Check-in
                 </label>
                 <input
@@ -83,13 +93,13 @@ export default function HotelSearch() {
                     setFieldErrors((previous) => ({ ...previous, checkIn: "", checkOut: "" }));
                     if (checkOut <= e.target.value) setCheckOut(addDaysToAppDate(e.target.value, 1));
                   }}
-                  className="outline-none text-sm font-medium text-gray-800 cursor-pointer"
+                  className={`${inputClass} cursor-pointer`}
                 />
                 {fieldErrors.checkIn && <p className="mt-1 text-xs text-red-600" role="alert">{fieldErrors.checkIn}</p>}
               </div>
 
-              <div className="flex flex-col border border-gray-200 rounded-xl px-4 py-2 focus-within:border-red-500 transition">
-                <label className="text-xs text-gray-400 flex items-center gap-1 font-medium">
+              <div className={fieldErrors.checkOut ? fieldBoxError : fieldBox}>
+                <label htmlFor="hotel-check-out" className={labelClass}>
                   <Calendar size={12} className="text-red-500" /> Check-out
                 </label>
                 <input
@@ -101,13 +111,13 @@ export default function HotelSearch() {
                     setCheckOut(e.target.value);
                     setFieldErrors((previous) => ({ ...previous, checkOut: "" }));
                   }}
-                  className="outline-none text-sm font-medium text-gray-800 cursor-pointer"
+                  className={`${inputClass} cursor-pointer`}
                 />
                 {fieldErrors.checkOut && <p className="mt-1 text-xs text-red-600" role="alert">{fieldErrors.checkOut}</p>}
               </div>
 
-              <div className="flex flex-col border border-gray-200 rounded-xl px-4 py-2 focus-within:border-red-500 transition">
-                <label className="text-xs text-gray-400 flex items-center gap-1 font-medium">
+              <div className={fieldErrors.guests ? fieldBoxError : fieldBox}>
+                <label htmlFor="hotel-guests" className={labelClass}>
                   <Users size={12} className="text-red-500" /> Guests
                 </label>
                 <input
@@ -119,13 +129,13 @@ export default function HotelSearch() {
                     setGuests(e.target.value);
                     setFieldErrors((previous) => ({ ...previous, guests: "" }));
                   }}
-                  className="outline-none text-sm font-medium text-gray-800"
+                  className={inputClass}
                 />
                 {fieldErrors.guests && <p className="mt-1 text-xs text-red-600" role="alert">{fieldErrors.guests}</p>}
               </div>
 
-              <div className="flex flex-col border border-gray-200 rounded-xl px-4 py-2 focus-within:border-red-500 transition">
-                <label htmlFor="hotel-rooms" className="text-xs text-gray-400 flex items-center gap-1 font-medium">
+              <div className={fieldErrors.rooms ? fieldBoxError : fieldBox}>
+                <label htmlFor="hotel-rooms" className={labelClass}>
                   Rooms
                 </label>
                 <input
@@ -137,14 +147,15 @@ export default function HotelSearch() {
                     setRooms(e.target.value);
                     setFieldErrors((previous) => ({ ...previous, rooms: "" }));
                   }}
-                  className="outline-none text-sm font-medium text-gray-800"
+                  className={inputClass}
                 />
                 {fieldErrors.rooms && <p className="mt-1 text-xs text-red-600" role="alert">{fieldErrors.rooms}</p>}
               </div>
 
               <button
+                type="button"
                 onClick={handleSearch}
-                className="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition"
+                className="sm:col-span-2 lg:col-span-1 flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-6 h-13.5 rounded-xl shadow-md transition"
               >
                 <Search size={18} />
                 Search
@@ -155,6 +166,7 @@ export default function HotelSearch() {
         </div>
       </div>
 
+      <div className="flex-1" />
       <Footer />
     </div>
   );

@@ -1,57 +1,65 @@
 // src/routes/AppRoutes.jsx
+import { lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import Error from "../pages/Error";
-import BusTicket from "../pages/BusTicket";
-import TrainTickets from "../pages/TrainTicket";
-import HotelSearch from "../pages/HotelSearch";
-import MyBookings from "../pages/MyBookings";
-import Help from "../pages/Help";
-import BusListing from "../pages/BusListing";
-import TrainListing from "../pages/Trainlisting";
-import HotelListing from "../pages/Hotellisting";
-import GovernmentBusesPage from "../pages/GovernmentBusesPage";
-import VoteOperator from "../pages/VoteOperator";
-import FreeCancellation from "../pages/FreeCancellation";
-import BusTimetable from "../pages/BusTimetable";
-import FlexiTicket from "../pages/FlexTicket";
-import MyDetails from "../pages/MyDetails";
-import Payment from "../pages/Payment";
-import Seats from "../pages/Seats";
-import PassengerDetails from "../pages/PassengerDetails";
-import Ticket from "../pages/Ticket";
-import TrainBooking from "../pages/TrainBooking";
-import HotelDetail from "../pages/HotelDetail";
-import HotelBooking from "../pages/HotelBooking";
-import TravelPayment from "../pages/TravelPayment";
-import TravelConfirmation from "../pages/TravelConfirmation";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-import SignUp from "../pages/SignUp";
-import Login from "../pages/Login";
-import ForgotPassword from "../pages/ForgotPassword";
-import Profile from "../pages/Profile";
-
-// Admin Panel Components
-import AdminLayout from "../admin/AdminLayout";
-import Dashboard from "../admin/pages/Dashboard";
-import AdminUsers from "../admin/pages/AdminUsers";
-import AdminUserDetail from "../admin/pages/AdminUserDetail";
-import AdminBookings from "../admin/pages/AdminBookings";
-import AdminPayments from "../admin/pages/AdminPayments";
-import AdminBuses from "../admin/pages/AdminBuses";
-import AdminTrips from "../admin/pages/AdminTrips";
-import AdminTrains from "../admin/pages/AdminTrains";
-import AdminHotels from "../admin/pages/AdminHotels";
-import AdminRoutes from "../admin/pages/AdminRoutes";
-import AdminOperators from "../admin/pages/AdminOperators";
-import AdminCities from "../admin/pages/AdminCities";
-import AdminPromotions from "../admin/pages/AdminPromotions";
-import AdminSettings from "../admin/pages/AdminSettings";
+const Error = lazy(() => import("../pages/Error"));
+const BusTicket = lazy(() => import("../pages/BusTicket"));
+const TrainTickets = lazy(() => import("../pages/TrainTicket"));
+const HotelSearch = lazy(() => import("../pages/Hotelsearch"));
+const MyBookings = lazy(() => import("../pages/MyBookings"));
+const Help = lazy(() => import("../pages/Help"));
+const BusListing = lazy(() => import("../pages/Buslisting"));
+const TrainListing = lazy(() => import("../pages/Trainlisting"));
+const HotelListing = lazy(() => import("../pages/Hotellisting"));
+const GovernmentBusesPage = lazy(() => import("../pages/Governmentbusespage"));
+const VoteOperator = lazy(() => import("../pages/VoteOperator"));
+const FreeCancellation = lazy(() => import("../pages/FreeCancellation"));
+const BusTimetable = lazy(() => import("../pages/BusTimetable"));
+const FlexiTicket = lazy(() => import("../pages/FlexTicket"));
+const MyDetails = lazy(() => import("../pages/MyDetails"));
+const Payment = lazy(() => import("../pages/Payment"));
+const Seats = lazy(() => import("../pages/Seats"));
+const PassengerDetails = lazy(() => import("../pages/PassengerDetails"));
+const Ticket = lazy(() => import("../pages/Ticket"));
+const TrainBooking = lazy(() => import("../pages/TrainBooking"));
+const HotelDetail = lazy(() => import("../pages/HotelDetail"));
+const HotelBooking = lazy(() => import("../pages/HotelBooking"));
+const TravelPayment = lazy(() => import("../pages/TravelPayment"));
+const TravelConfirmation = lazy(() => import("../pages/TravelConfirmation"));
+const SignUp = lazy(() => import("../pages/SignUp"));
+const Login = lazy(() => import("../pages/Login"));
+const ForgotPassword = lazy(() => import("../pages/ForgotPassword"));
+const Profile = lazy(() => import("../pages/Profile"));
+const AdminLayout = lazy(() => import("../admin/AdminLayout"));
+const Dashboard = lazy(() => import("../admin/pages/Dashboard"));
+const AdminUsers = lazy(() => import("../admin/pages/AdminUsers"));
+const AdminUserDetail = lazy(() => import("../admin/pages/AdminUserDetail"));
+const AdminBookings = lazy(() => import("../admin/pages/AdminBookings"));
+const AdminPayments = lazy(() => import("../admin/pages/AdminPayments"));
+const AdminBuses = lazy(() => import("../admin/pages/AdminBuses"));
+const AdminTrips = lazy(() => import("../admin/pages/AdminTrips"));
+const AdminTrains = lazy(() => import("../admin/pages/AdminTrains"));
+const AdminHotels = lazy(() => import("../admin/pages/AdminHotels"));
+const AdminRoutes = lazy(() => import("../admin/pages/AdminRoutes"));
+const AdminOperators = lazy(() => import("../admin/pages/AdminOperators"));
+const AdminCities = lazy(() => import("../admin/pages/AdminCities"));
+const AdminPromotions = lazy(() => import("../admin/pages/AdminPromotions"));
+const AdminSettings = lazy(() => import("../admin/pages/AdminSettings"));
 
 export default function AppRoutes() {
   const location = useLocation();
   return (
     <div key={location.pathname} className="route-transition">
+      <Suspense
+        fallback={
+          <div
+            className="min-h-[40vh] animate-pulse bg-gray-100"
+            role="status"
+            aria-label="Loading page"
+          />
+        }
+      >
     <Routes>
       <Route path="/" element={<BusTicket />} />
       <Route path="/signup" element={<SignUp />} />
@@ -159,6 +167,7 @@ export default function AppRoutes() {
       {/* 404 Catch-All */}
       <Route path="*" element={<Error />} />
     </Routes>
+      </Suspense>
     </div>
   );
 }

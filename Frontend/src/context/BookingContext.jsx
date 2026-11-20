@@ -185,7 +185,7 @@ export function BookingProvider({ children }) {
     setState(initialBookingState);
     try {
       sessionStorage.removeItem(STORAGE_KEY);
-    } catch (e) {
+    } catch {
       // ignore
     }
   }, []);

@@ -4,10 +4,15 @@ import AnimatedCounter from "./AnimatedCounter";
 export default function AppDownloadBanner() {
   return (
     <section className="max-w-6xl mx-auto px-4 py-10">
-      <div
-        className="relative rounded-2xl overflow-hidden bg-cover bg-center"
-        style={{ backgroundImage: "url('/appbanner.webp')" }}
-      >
+      <div className="relative rounded-2xl overflow-hidden">
+        <img
+          src="/appbanner.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         {/* Dark overlay so text stays readable regardless of the photo underneath */}
         <div className="absolute inset-0 bg-black/50" />
 

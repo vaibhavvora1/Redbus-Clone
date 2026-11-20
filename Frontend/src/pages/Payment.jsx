@@ -12,16 +12,10 @@ import {
   Lock,
   ChevronRight,
   Clock,
-  MapPin,
   AlertCircle,
   ArrowLeft,
   Smartphone,
-  Check,
   Loader2,
-  Download,
-  Calendar,
-  User,
-  Ticket,
 } from "lucide-react";
 
 export default function Payment() {
@@ -99,16 +93,13 @@ export default function Payment() {
   const [cardHolder, setCardHolder] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
-  const [saveCard, setSaveCard] = useState(true);
   const [cardErrors, setCardErrors] = useState({});
 
   // Net Banking
   const [selectedBank, setSelectedBank] = useState("HDFC");
-  const [otherBank, setOtherBank] = useState("");
 
   // Payment UI state: "idle" | "processing" | "success" | "sandbox_prompt"
   const [paymentStatus, setPaymentStatus] = useState("idle");
-  const [bookingRef, setBookingRef] = useState("");
   const [paymentError, setPaymentError] = useState("");
   const [sandboxOrderData, setSandboxOrderData] = useState(null);
 
@@ -196,7 +187,6 @@ export default function Payment() {
 
       const confirmed = res.booking || res.data;
       const refId = confirmed.bookingId || `RDB-${String(confirmed._id).slice(-6).toUpperCase()}`;
-      setBookingRef(refId);
       setConfirmedBooking(confirmed);
       setPaymentStatus("success");
       setStep(5);

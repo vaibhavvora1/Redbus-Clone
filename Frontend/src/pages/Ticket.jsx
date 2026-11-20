@@ -1,16 +1,12 @@
 import { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   CheckCircle2,
   Calendar,
-  Clock,
   MapPin,
-  User,
-  Ticket as TicketIcon,
   Download,
   Printer,
   ArrowLeft,
-  Share2,
   AlertCircle,
   Loader2,
   ShieldCheck,
@@ -23,7 +19,6 @@ import BookingStepper from "../components/BookingStepper";
 
 export default function Ticket() {
   const { bookingId } = useParams();
-  const navigate = useNavigate();
   const { confirmedBooking } = useBooking();
   const printRef = useRef(null);
 
@@ -60,7 +55,7 @@ export default function Ticket() {
           } else if (isMounted && !booking) {
             setError(err.message || "Could not retrieve ticket details.");
           }
-        } catch (subErr) {
+        } catch {
           if (isMounted && !booking) {
             setError("Unable to find booking details. Please check My Bookings.");
           }
@@ -72,14 +67,12 @@ export default function Ticket() {
 
     if (!booking || (booking.bookingId !== bookingId && booking._id !== bookingId)) {
       fetchBooking();
-    } else {
-      setLoading(false);
     }
 
     return () => {
       isMounted = false;
     };
-  }, [bookingId]);
+  }, [booking, bookingId]);
 
   const handlePrint = () => {
     window.print();
@@ -325,6 +318,10 @@ export default function Ticket() {
                   <img
                     src={booking.qrCode}
                     alt="Booking QR Code"
+                    loading="lazy"
+                    decoding="async"
+                    width="128"
+                    height="128"
                     className="w-32 h-32 object-contain"
                   />
                 ) : (

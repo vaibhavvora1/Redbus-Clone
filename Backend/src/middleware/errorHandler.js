@@ -13,6 +13,10 @@ export const notFoundHandler = (req, res) => {
 };
 
 export const errorHandler = (err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+
   // Body-parser malformed JSON payload
   if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
     return res.status(400).json({

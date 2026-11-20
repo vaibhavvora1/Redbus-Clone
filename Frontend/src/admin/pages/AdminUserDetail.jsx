@@ -1,7 +1,7 @@
 // src/admin/pages/AdminUserDetail.jsx
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Mail, Phone, ShieldCheck, User, CalendarDays, Ticket } from "lucide-react";
+import { ArrowLeft, Mail, Phone, CalendarDays, Ticket } from "lucide-react";
 import api from "../../services/api";
 import StatusBadge from "../components/StatusBadge";
 

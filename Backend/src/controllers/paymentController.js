@@ -1,5 +1,4 @@
 import crypto from "crypto";
-import Razorpay from "razorpay";
 import QRCode from "qrcode";
 import mongoose from "mongoose";
 import Payment from "../models/Payment.js";
@@ -36,7 +35,7 @@ async function withOptionalTransaction(workFn) {
   try {
     session = await mongoose.startSession();
     session.startTransaction();
-  } catch (err) {
+  } catch {
     // Standalone MongoDB without replica set does not support transactions
     session = null;
   }
@@ -51,7 +50,7 @@ async function withOptionalTransaction(workFn) {
     if (session) {
       try {
         await session.abortTransaction();
-      } catch (abortErr) {
+      } catch {
         // ignore abort errors
       }
     }
@@ -315,7 +314,7 @@ export const createOrder = asyncHandler(async (req, res) => {
   }
 
   // 2. Server recalculated total amount from primary database (authoritative source of truth)
-  const { baseFare: serverBaseFare, tax: serverTax, totalAmount: calculatedTotalAmount } =
+  const { totalAmount: calculatedTotalAmount } =
     calculateServerFares(trip, seatNumberList);
 
   // Amount mismatch guard: if client submitted an amount that differs from server calculation, reject
@@ -899,7 +898,7 @@ export const verifyPayment = asyncHandler(async (req, res) => {
           statusCode: 200,
           responseBody: responsePayload,
         });
-      } catch (e) {
+      } catch {
         // Ignore duplicate insert for idempotency record
       }
     }

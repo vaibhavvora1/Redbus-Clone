@@ -9,7 +9,7 @@ import {
   calculateServerFares,
 } from "../utils/bookingValidation.js";
 import { generateTicketPdf } from "../utils/pdfGenerator.js";
-import { getTodayInAppTZ, hasDeparted } from "../utils/timeZone.js";
+import { getTodayInAppTZ } from "../utils/timeZone.js";
 import { assertTripCanBeBooked, holdSeatsAtomic } from "../services/tripService.js";
 import { processTravelRefund } from "../services/travelCancellation.js";
 
@@ -22,7 +22,7 @@ async function withOptionalTransaction(workFn) {
   try {
     session = await mongoose.startSession();
     session.startTransaction();
-  } catch (err) {
+  } catch {
     session = null;
   }
 
@@ -36,7 +36,7 @@ async function withOptionalTransaction(workFn) {
     if (session) {
       try {
         await session.abortTransaction();
-      } catch (abortErr) {
+      } catch {
         // ignore
       }
     }
@@ -409,7 +409,7 @@ export const createBooking = asyncHandler(async (req, res) => {
           statusCode: 201,
           responseBody: responsePayload,
         });
-      } catch (e) {
+      } catch {
         // Ignore duplicate insert
       }
     }

@@ -3,12 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {
   User,
   Phone,
-  Mail,
-  ShieldCheck,
-  AlertCircle,
   ArrowRight,
   ArrowLeft,
-  Clock,
 } from "lucide-react";
 import { useBooking } from "../context/BookingContext";
 import { useAuth } from "../context/AuthContext";

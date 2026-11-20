@@ -2,7 +2,7 @@ import Promotion from "../models/Promotion.js";
 
 export const getPromotions = async (req, res) => {
   try {
-    const promotions = await Promotion.find({ isActive: true }).sort({ createdAt: -1 });
+    const promotions = await Promotion.find({ isActive: true }).sort({ createdAt: -1 }).lean();
     return res.status(200).json({
       success: true,
       count: promotions.length,

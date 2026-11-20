@@ -27,6 +27,7 @@ export default function BusListing() {
   const toRef = useRef(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Mirror URL values into the editable search draft.
     setModifiedFrom(from);
     setModifiedTo(to);
     setModifiedDate(date);

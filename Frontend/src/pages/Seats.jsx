@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import api from "../services/api";
 import { useBooking } from "../context/BookingContext";
-import { useAuth } from "../context/AuthContext";
 import BookingStepper from "../components/BookingStepper";
 import { getMaxBookingDateInAppTZ, getTodayInAppTZ } from "../utils/timeZone";
 
@@ -23,7 +22,6 @@ export default function Seats() {
   const { tripId: paramTripId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
   const {
     trip,
     initTrip,
@@ -81,6 +79,7 @@ export default function Seats() {
   }, [tripId, initTrip]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Start the route's live seat-data request.
     loadTripAndSeats();
   }, [loadTripAndSeats]);
 
@@ -113,7 +112,7 @@ export default function Seats() {
   const isSoldOut = useMemo(() => {
     if (!tripData) return false;
     return Number(tripData.availableSeats) === 0;
-  }, [tripData, seatsList]);
+  }, [tripData]);
 
   // Split seats into lower and upper decks
   const lowerDeckSeats = useMemo(() => {
